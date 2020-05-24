@@ -76,6 +76,9 @@ If you are using ssh you will need to add the ssh link instead:
 
 If this is left off you will have to commit and push the changes manually.
 
+Optionally, if you want to set a CNAME to your page (so that www.yourdomain.com forwards to this page), add this field in package.json:
+
+"cname": "www.yourdomain.com",
   
 
 ### Step 4: Now when you're ready to push to github, run:  
