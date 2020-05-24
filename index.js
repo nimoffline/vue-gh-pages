@@ -8,6 +8,7 @@ const ghpages = require('gh-pages');
 const ncp = require('ncp').ncp;
 const path = require('path');
 const packageJson = require(path.resolve('./package.json'));
+const cname = packageJson['cname'] || null;
 const repository = packageJson['homepage'] || null;
 const webpackSimpleTemplate = packageJson['wst'] || null;
 const rimraf = require('rimraf');
@@ -97,6 +98,7 @@ function runBuild() {
     packageManagerName = checkIfYarn() ? 'yarn' : 'npm';
     execSync(`${packageManagerName} run build`, { 'stdio': [0, 1, 2] });
     copyFiles('dist', path.resolve(outputDirectory), function() {
+        if (cname) fs.writeFileSync(path.resolve(outputDirectory + '/CNAME'), cname)
         console.log('Build Complete.');
         const pathToBuild = 'dist';
         rimraf(pathToBuild, function() {
